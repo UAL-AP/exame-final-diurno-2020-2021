@@ -21,6 +21,7 @@ last_digit = int(number[len(number)-1])+1
 
 # Assumir que last_digit par.
 
+
 def registar_jogador(jogo, nome):
     # Um jogador é representado com um dicionário com a seguinte estrutura
     # mínima:
@@ -72,12 +73,16 @@ def iniciar_jogo(jogo, nome_primeiro_jogador, marca_primeiro_jogador, nome_segun
             primeiro_jogador = jogador
         if jogador["nome"] == nome_segundo_jogador:
             segundo_jogador = jogador
-    jogo["em_curso"] = {
-        "primeiro_jogador": primeiro_jogador,
-        "marca_primeiro_jogador": marca_primeiro_jogador,
-        "segundo_jogador": segundo_jogador,
-        "marca_segundo_jogador": marca_segundo_jogador,
-    }
+    jogo["em_curso"] = [
+        {
+            "jogador": primeiro_jogador,
+            "marca": marca_primeiro_jogador,
+        },
+        {
+            "jogador": segundo_jogador,
+            "marca": marca_segundo_jogador
+        }
+    ]
 
 
 def existe_jogo_em_curso(jogo):
@@ -88,7 +93,7 @@ def existe_jogo_em_curso(jogo):
 def localizacao_valida(linha, coluna):
     # Retorna True se as localização indicada for válida, i.e., dentro de uma
     # grelha de 3x3.
-    return linha > 0 and linha <=3 and coluna > 0 and coluna <= 3
+    return linha > 0 and linha <= 3 and coluna > 0 and coluna <= 3
 
 
 def colocar_peca(jogo, nome_jogador, linha, coluna):
@@ -108,7 +113,29 @@ def colocar_peca(jogo, nome_jogador, linha, coluna):
     #
     # Se last_digit ímpar: o empate não altera o número de vitorias dos
     # jogadores.
-    pass
+
+    for jogador_em_curso in jogo["em_curso"]:
+        if jogador_em_curso["jogador"]["nome"] == nome_jogador:
+            jogador = jogador_em_curso["jogador"]
+            marca = jogador_em_curso["marca"]
+    jogo["tabuleiro"][linha-1][coluna-1] = marca
+
+    # Verificar se o tabuleiro ficou cheio
+    terminou = True
+    for row in jogo["tabuleiro"]:
+        for value in row:
+            if value is None:
+                terminou = False
+                break
+    if terminou:
+        for jogador_em_curso in jogo["em_curso"]:
+            jogador["jogos"] += 1
+            if jogador_em_curso["jogador"] == jogador:
+                jogador["vitorias"] += 1
+            elif not verificar_vitoria(jogo):
+                jogador["vitorias"] += 1
+        return True
+    return False
 
 
 def verificar_vitoria(jogo):
@@ -117,4 +144,24 @@ def verificar_vitoria(jogo):
     # Se last_digit par: vitória apenas diagonal
     #
     # Se last_digit ímpar: vitória apenas horizontal e vertical
-    pass
+    diagonals = [
+        [[0,0],[1,1],[2,2]],
+        [[0,2],[1,1],[2,0]]
+    ]
+    for diagonal in diagonals:
+        marcas = [] # Lista de ocorrências de marcas iguais
+        marca = None # Marca na diagonal
+        for posicao in diagonal: # Para cada Diagonal
+            linha = posicao[0]
+            coluna = posicao[1]
+            nova_marca = jogo["tabuleiro"][linha][coluna] # Obtém a marca na coluna
+            if marca is None and nova_marca is not None:
+                marca = nova_marca
+                marcas.append(nova_marca)
+            elif nova_marca == marca and nova_marca is not None:
+                marcas.append(nova_marca)
+            else:
+                break
+        if len(marcas) == 3:
+            return True
+    return False
