@@ -88,7 +88,7 @@ def existe_jogo_em_curso(jogo):
 def localizacao_valida(linha, coluna):
     # Retorna True se as localização indicada for válida, i.e., dentro de uma
     # grelha de 3x3.
-    pass
+    return linha > 0 and linha <=3 and coluna > 0 and coluna <= 3
 
 
 def colocar_peca(jogo, nome_jogador, linha, coluna):
