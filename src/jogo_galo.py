@@ -19,6 +19,7 @@ number = "INDICAR NÚMERO DE ESTUDANTE"
 # soma o valor 1. Vai ser utilizada para determinar que funcionalidades deve implementar.
 last_digit = int(number[len(number)-1])+1
 
+# Assumir que last_digit par.
 
 def registar_jogador(jogo, nome):
     # Um jogador é representado com um dicionário com a seguinte estrutura
@@ -30,7 +31,23 @@ def registar_jogador(jogo, nome):
     #
     # Se last_digit ímpar: o nome deve guardado com os espaços em branco
     # convertidos em underscore.
-    pass
+
+    # Estratégia 1
+    nome_jogador = "".join([x for x in nome if x != " "])
+
+    # Estratégia 2
+    nome_jogador = []
+    for letra in nome:
+        if letra != " ":
+            nome_jogador.append(letra.upper())
+    nome_jogador = "".join(nome_jogador)
+
+    jogador = {
+        "nome": nome_jogador,
+        "vitorias": 0,
+        "jogos": 0
+    }
+    jogo["jogadores"].append(jogador)
 
 
 def existe_jogador(jogo, nome):
