@@ -60,7 +60,7 @@ def existe_jogador(jogo, nome):
 
 def obter_jogadores(jogo):
     # Retorna uma lista de dicionários com a informação dos jogadores.
-    pass
+    return jogo["jogadores"]
 
 
 def iniciar_jogo(jogo, nome_primeiro_jogador, marca_primeiro_jogador, nome_segundo_jogador, marca_segundo_jogador):
