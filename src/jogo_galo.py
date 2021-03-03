@@ -43,6 +43,7 @@ def registar_jogador(jogo, nome):
     nome_jogador = "".join(nome_jogador)
 
     jogador = {
+
         "nome": nome_jogador,
         "vitorias": 0,
         "jogos": 0
@@ -65,12 +66,23 @@ def obter_jogadores(jogo):
 
 def iniciar_jogo(jogo, nome_primeiro_jogador, marca_primeiro_jogador, nome_segundo_jogador, marca_segundo_jogador):
     # Deve criar o tabuleiro no dicionário jogo.
-    pass
+    jogo["tabuleiro"] = [[None for _ in range(3)] for _ in range(3)]
+    for jogador in jogo["jogadores"]:
+        if jogador["nome"] == nome_primeiro_jogador:
+            primeiro_jogador = jogador
+        if jogador["nome"] == nome_segundo_jogador:
+            segundo_jogador = jogador
+    jogo["em_curso"] = {
+        "primeiro_jogador": primeiro_jogador,
+        "marca_primeiro_jogador": marca_primeiro_jogador,
+        "segundo_jogador": segundo_jogador,
+        "marca_segundo_jogador": marca_segundo_jogador,
+    }
 
 
 def existe_jogo_em_curso(jogo):
     # Retorna True se estiver um jogo em curso.
-    pass
+    return jogo["em_curso"] is not None
 
 
 def localizacao_valida(linha, coluna):

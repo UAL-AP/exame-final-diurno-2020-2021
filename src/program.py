@@ -8,7 +8,8 @@ number = "INDICAR NÚMERO DE ESTUDANTE"
 def main():
     jogo = {
         "jogadores": [],
-        "tabuleiro": None
+        "tabuleiro": None,
+        "em_curso": None
     }
 
     while True:
