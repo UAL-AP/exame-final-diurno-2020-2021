@@ -52,7 +52,10 @@ def registar_jogador(jogo, nome):
 
 def existe_jogador(jogo, nome):
     # Retorna True se o jogador com o nome indicado estiver registado.
-    pass
+    for jogador in jogo["jogadores"]:
+        if jogador["nome"] == nome:
+            return True
+    return False
 
 
 def obter_jogadores(jogo):
