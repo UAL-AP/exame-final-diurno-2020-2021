@@ -145,16 +145,17 @@ def verificar_vitoria(jogo):
     #
     # Se last_digit ímpar: vitória apenas horizontal e vertical
     diagonals = [
-        [[0,0],[1,1],[2,2]],
-        [[0,2],[1,1],[2,0]]
+        [[0, 0], [1, 1], [2, 2]],
+        [[0, 2], [1, 1], [2, 0]]
     ]
     for diagonal in diagonals:
-        marcas = [] # Lista de ocorrências de marcas iguais
-        marca = None # Marca na diagonal
-        for posicao in diagonal: # Para cada Diagonal
+        marcas = []  # Lista de ocorrências de marcas iguais
+        marca = None  # Marca na diagonal
+        for posicao in diagonal:  # Para cada Diagonal
             linha = posicao[0]
             coluna = posicao[1]
-            nova_marca = jogo["tabuleiro"][linha][coluna] # Obtém a marca na coluna
+            # Obtém a marca na coluna
+            nova_marca = jogo["tabuleiro"][linha][coluna]
             if marca is None and nova_marca is not None:
                 marca = nova_marca
                 marcas.append(nova_marca)

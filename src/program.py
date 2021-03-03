@@ -1,8 +1,9 @@
 # IMPORTANTE: Indique o seu número de estudante em string, na variável de módulo
 # `number`
-# TODO: Assume-se que a resolução é par/ímpar
 import jogo_galo as jg
 number = "INDICAR NÚMERO DE ESTUDANTE"
+
+# Assume-se que a resolução é par.
 
 
 def main():
